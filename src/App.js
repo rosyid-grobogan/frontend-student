@@ -1,7 +1,7 @@
 import './App.css';
 import React, { Component } from 'react';
 import { getAllStudents } from './helpers/client';
-import { Table, Avatar, Tag, Spin, Icon } from 'antd';
+import { Table, Avatar, Tag, Spin } from 'antd';
 import Container from './Container';
 
 class App extends Component {
