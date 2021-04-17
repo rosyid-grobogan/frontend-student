@@ -2,6 +2,7 @@ import './App.css';
 import React, { Component } from 'react';
 import { getAllStudents } from './helpers/client';
 import { Table } from 'antd';
+import Container from './Container';
 
 class App extends Component {
   state = {
@@ -69,7 +70,14 @@ class App extends Component {
       ];
 
       return (
-        <Table dataSource={students} columns={columns} rowKey='studentId' />
+        <Container>
+          <Table
+            dataSource={students}
+            columns={columns}
+            rowKey='studentId'
+            pagination={false}
+          />
+        </Container>
       );
     }
 
