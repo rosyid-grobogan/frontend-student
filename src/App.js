@@ -1,12 +1,13 @@
 import './App.css';
 import React, { Component } from 'react';
 import { getAllStudents } from './helpers/client';
-import { Table, Avatar, Tag } from 'antd';
+import { Table, Avatar, Tag, Spin, Icon } from 'antd';
 import Container from './Container';
 
 class App extends Component {
   state = {
-    student: [],
+    students: [],
+    isFetching: false,
   };
 
   componentDidMount() {
@@ -14,12 +15,17 @@ class App extends Component {
   }
 
   fetchStudent = () => {
+    this.setState({
+      isFetching: true,
+    });
+
     getAllStudents().then((res) =>
       res.json().then((students) => {
         console.log(students);
         this.setState({
           // students: students
           students,
+          isFetching: false,
         });
       })
     );
@@ -32,7 +38,15 @@ class App extends Component {
   // )}
   render() {
     // const { students } = this.props;
-    const { students } = this.state;
+    const { students, isFetching } = this.state;
+
+    if (isFetching) {
+      return (
+        <Container>
+          <Spin size='large' />
+        </Container>
+      );
+    }
 
     if (students && students.length) {
       // return students.map((student, id) => {
