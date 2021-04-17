@@ -1,7 +1,7 @@
 import './App.css';
 import React, { Component } from 'react';
 import { getAllStudents } from './helpers/client';
-import { Table } from 'antd';
+import { Table, Avatar, Tag } from 'antd';
 import Container from './Container';
 
 class App extends Component {
@@ -48,6 +48,16 @@ class App extends Component {
       // });
       const columns = [
         {
+          title: '',
+          key: 'avatar',
+          render: (text, student) => (
+            <Avatar size='large'>
+              {`${student.firstName.charAt(0).toUpperCase()}`}
+              {`${student.lastName.charAt(0).toUpperCase()}`}
+            </Avatar>
+          ),
+        },
+        {
           title: 'StudentId',
           dataIndex: 'studentId',
           key: 'studentId',
@@ -66,6 +76,18 @@ class App extends Component {
           title: 'Gender',
           dataIndex: 'gender',
           key: 'gender',
+        },
+        {
+          title: 'Status',
+          dataIndex: 'status',
+          key: 'status',
+          render: (status) => (
+            <>
+              <Tag color={status === 'ACTIVED' ? 'green' : 'red'}>
+                {status.toUpperCase()}
+              </Tag>
+            </>
+          ),
         },
       ];
 
