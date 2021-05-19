@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { getAllStudents } from './helpers/client';
 import { Table, Avatar, Tag, Spin } from 'antd';
 import Container from './Container';
+import Footer from './components/Footer';
 
 class App extends Component {
   state = {
@@ -113,6 +114,7 @@ class App extends Component {
             rowKey='studentId'
             pagination={false}
           />
+          <Footer numberOfStudents={students.length}></Footer>
         </Container>
       );
     }
