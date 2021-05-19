@@ -4,6 +4,7 @@ import { getAllStudents } from './helpers/client';
 import { Table, Avatar, Tag, Spin, Modal } from 'antd';
 import Container from './Container';
 import Footer from './components/Footer';
+import AddStudentForm from './forms/AddStudentForm';
 
 class App extends Component {
   state = {
@@ -128,7 +129,7 @@ class App extends Component {
             onCancel={this.closeAddStudentModal}
             width={1000}
           >
-            <h2>Ini Modal</h2>
+            <AddStudentForm />
           </Modal>
           <Footer
             numberOfStudents={students.length}
