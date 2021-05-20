@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { Formik } from 'formik';
-import { Input, Button, Tag } from 'antd';
+import { Input, Button, Select, Tag } from 'antd';
 
+const { Option } = Select;
 const inputButtomMargin = { marginBottom: '5px' };
 const tagStyle = {
   backgroundColor: '#f50',
@@ -17,6 +18,7 @@ class AddStudentForm extends Component {
           lastName: '',
           email: '',
           gender: '',
+          mustBe: '',
         }}
         validate={(values) => {
           const errors = {};
@@ -36,10 +38,13 @@ class AddStudentForm extends Component {
           }
           if (!values.gender) {
             errors.gender = 'Gender Required';
+          }
+          if (!values.mustBe) {
+            errors.mustBe = 'Required';
           } else if (
-            !['MALE', 'male', 'FEMALE', 'female'].includes(values.gender)
+            !['MALE', 'male', 'FEMALE', 'female'].includes(values.mustBe)
           ) {
-            errors.gender = 'Gender must be (MALE, male, FEMALE, female)';
+            errors.mustBe = 'Gender must be (MALE, male, FEMALE, female)';
           }
           return errors;
         }}
@@ -49,7 +54,6 @@ class AddStudentForm extends Component {
 
             setSubmitting(false);
           }, 400);
-          console.log(values);
         }}
       >
         {({
@@ -61,7 +65,6 @@ class AddStudentForm extends Component {
           handleSubmit,
           isSubmitting,
           submitForm,
-          isValid,
           /* and other goodies */
         }) => (
           <form onSubmit={handleSubmit}>
@@ -103,12 +106,27 @@ class AddStudentForm extends Component {
 
             <Input
               style={inputButtomMargin}
-              name='gender'
+              name='mustBe'
               onChange={handleChange}
               onBlur={handleBlur}
-              value={values.gender}
-              placeholder='Gender must be (MALE, male, FEMALE, female)'
+              value={values.mustBe}
+              placeholder='Must be'
             />
+            {errors.mustBe && touched.mustBe && (
+              <Tag style={tagStyle}>{errors.mustBe}</Tag>
+            )}
+            <br />
+            <Select
+              defaultValue='Gender'
+              style={{ width: 120, marginBottom: '10px' }}
+              onChange={handleChange}
+            >
+              <Option value='disabled' disabled>
+                Gender:
+              </Option>
+              <Option value='male'>Male</Option>
+              <Option value='female'>Female</Option>
+            </Select>
             {errors.gender && touched.gender && (
               <Tag style={tagStyle}>{errors.gender}</Tag>
             )}
@@ -116,7 +134,7 @@ class AddStudentForm extends Component {
             <Button
               onClick={() => submitForm()}
               type='submit'
-              disabled={isSubmitting | (touched && !isValid)}
+              disabled={isSubmitting}
             >
               Submit
             </Button>
