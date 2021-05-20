@@ -1,24 +1,46 @@
 import React, { Component } from 'react';
 import { Formik } from 'formik';
-import { Input, Button } from 'antd';
+import { Input, Button, Select } from 'antd';
 
+const { Option } = Select;
 const inputButtomMargin = { marginBottom: '5px' };
 class AddStudentForm extends Component {
   render() {
     return (
       <Formik
-        initialValues={{ email: '', password: '' }}
+        initialValues={{
+          firstName: '',
+          lastName: '',
+          email: '',
+          gender: '',
+          mustBe: '',
+        }}
         validate={(values) => {
           const errors = {};
 
           if (!values.email) {
-            errors.email = 'Required';
+            errors.email = 'Email Required';
           } else if (
             !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
           ) {
             errors.email = 'Invalid email address';
           }
-
+          if (!values.firstName) {
+            errors.firstName = 'First Name Required';
+          }
+          if (!values.lastName) {
+            errors.lastName = 'Last Name Required';
+          }
+          if (!values.gender) {
+            errors.gender = 'Gender Required';
+          }
+          if (!values.mustBe) {
+            errors.mustBe = 'Required';
+          } else if (
+            !['MALE', 'male', 'FEMALE', 'female'].includes(values.mustBe)
+          ) {
+            errors.mustBe = 'Gender must be (MALE, male, FEMALE, female)';
+          }
           return errors;
         }}
         onSubmit={(values, { setSubmitting }) => {
@@ -31,19 +53,12 @@ class AddStudentForm extends Component {
       >
         {({
           values,
-
           errors,
-
           touched,
-
           handleChange,
-
           handleBlur,
-
           handleSubmit,
-
           isSubmitting,
-
           /* and other goodies */
         }) => (
           <form onSubmit={handleSubmit}>
@@ -77,6 +92,29 @@ class AddStudentForm extends Component {
             />
             {errors.email && touched.email && errors.email}
 
+            <Input
+              style={inputButtomMargin}
+              name='mustBe'
+              onChange={handleChange}
+              onBlur={handleBlur}
+              value={values.mustBe}
+              placeholder='Must be'
+            />
+            {errors.mustBe && touched.mustBe && errors.mustBe}
+            <br />
+            <Select
+              defaultValue='Gender'
+              style={{ width: 120, marginBottom: '10px' }}
+              onChange={handleChange}
+            >
+              <Option value='disabled' disabled>
+                Gender:
+              </Option>
+              <Option value='male'>Male</Option>
+              <Option value='female'>Female</Option>
+            </Select>
+            {errors.gender && touched.email && errors.gender}
+            <br />
             <Button type='submit' disabled={isSubmitting}>
               Submit
             </Button>
