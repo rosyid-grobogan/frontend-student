@@ -1,9 +1,14 @@
 import React, { Component } from 'react';
 import { Formik } from 'formik';
-import { Input, Button, Select } from 'antd';
+import { Input, Button, Select, Tag } from 'antd';
 
 const { Option } = Select;
 const inputButtomMargin = { marginBottom: '5px' };
+const tagStyle = {
+  backgroundColor: '#f50',
+  color: 'white',
+  ...inputButtomMargin,
+};
 class AddStudentForm extends Component {
   render() {
     return (
@@ -70,7 +75,9 @@ class AddStudentForm extends Component {
               value={values.firstName}
               placeholder='First Name'
             />
-            {errors.firstName && touched.firstName && errors.firstName}
+            {errors.firstName && touched.firstName && (
+              <Tag style={tagStyle}>{errors.firstName}</Tag>
+            )}
 
             <Input
               style={{ marginBottom: '5px' }}
@@ -80,7 +87,9 @@ class AddStudentForm extends Component {
               value={values.lastName}
               placeholder='Last Name'
             />
-            {errors.lastName && touched.lastName && errors.lastName}
+            {errors.lastName && touched.lastName && (
+              <Tag style={tagStyle}>{errors.lastName}</Tag>
+            )}
 
             <Input
               style={inputButtomMargin}
@@ -90,7 +99,9 @@ class AddStudentForm extends Component {
               value={values.email}
               placeholder='Email'
             />
-            {errors.email && touched.email && errors.email}
+            {errors.email && touched.email && (
+              <Tag style={tagStyle}>{errors.email}</Tag>
+            )}
 
             <Input
               style={inputButtomMargin}
@@ -100,7 +111,9 @@ class AddStudentForm extends Component {
               value={values.mustBe}
               placeholder='Must be'
             />
-            {errors.mustBe && touched.mustBe && errors.mustBe}
+            {errors.mustBe && touched.mustBe && (
+              <Tag style={tagStyle}>{errors.mustBe}</Tag>
+            )}
             <br />
             <Select
               defaultValue='Gender'
@@ -113,7 +126,9 @@ class AddStudentForm extends Component {
               <Option value='male'>Male</Option>
               <Option value='female'>Female</Option>
             </Select>
-            {errors.gender && touched.email && errors.gender}
+            {errors.gender && touched.gender && (
+              <Tag style={tagStyle}>{errors.gender}</Tag>
+            )}
             <br />
             <Button type='submit' disabled={isSubmitting}>
               Submit
