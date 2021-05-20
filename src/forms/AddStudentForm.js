@@ -64,6 +64,7 @@ class AddStudentForm extends Component {
           handleBlur,
           handleSubmit,
           isSubmitting,
+          submitForm,
           /* and other goodies */
         }) => (
           <form onSubmit={handleSubmit}>
@@ -130,7 +131,11 @@ class AddStudentForm extends Component {
               <Tag style={tagStyle}>{errors.gender}</Tag>
             )}
             <br />
-            <Button type='submit' disabled={isSubmitting}>
+            <Button
+              onClick={() => submitForm()}
+              type='submit'
+              disabled={isSubmitting}
+            >
               Submit
             </Button>
           </form>
