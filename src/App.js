@@ -5,6 +5,7 @@ import { Table, Avatar, Tag, Spin, Modal } from 'antd';
 import Container from './Container';
 import Footer from './components/Footer';
 import AddStudentForm from './forms/AddStudentForm';
+import { errorNotification } from './helpers/Notification';
 
 class App extends Component {
   state = {
@@ -40,7 +41,10 @@ class App extends Component {
         })
       )
       .catch((error) => {
-        console.log(error.error.message);
+        console.log(error.error);
+        const message = error.error.message;
+        const description = error.error.error;
+        errorNotification(message, description);
         this.setState({
           isFetching: false,
         });
