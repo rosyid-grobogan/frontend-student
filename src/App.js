@@ -60,6 +60,29 @@ class App extends Component {
     // const { students } = this.props;
     const { students, isFetching, isAddStudentModalVisible } = this.state;
 
+    const elementAddModal = () => (
+      <div>
+        <Modal
+          title='Add New Student'
+          visible={isAddStudentModalVisible}
+          onOk={this.closeAddStudentModal}
+          onCancel={this.closeAddStudentModal}
+          width={1000}
+        >
+          <AddStudentForm
+            onSuccess={() => {
+              this.closeAddStudentModal();
+              this.fetchStudent();
+            }}
+          />
+        </Modal>
+        <Footer
+          numberOfStudents={students.length}
+          handleAddStudentClickEvent={this.openAddStudentModalVisible}
+        ></Footer>
+      </div>
+    );
+
     if (isFetching) {
       return (
         <Container>
@@ -133,24 +156,7 @@ class App extends Component {
             rowKey='studentId'
             pagination={false}
           />
-          <Modal
-            title='Add New Student'
-            visible={isAddStudentModalVisible}
-            onOk={this.closeAddStudentModal}
-            onCancel={this.closeAddStudentModal}
-            width={1000}
-          >
-            <AddStudentForm
-              onSuccess={() => {
-                this.closeAddStudentModal();
-                this.fetchStudent();
-              }}
-            />
-          </Modal>
-          <Footer
-            numberOfStudents={students.length}
-            handleAddStudentClickEvent={this.openAddStudentModalVisible}
-          ></Footer>
+          {elementAddModal()}
         </Container>
       );
     }
@@ -158,6 +164,7 @@ class App extends Component {
     return (
       <Container>
         <Empty description={<h2>No Students found</h2>} />
+        {elementAddModal()}
       </Container>
     );
   }
