@@ -1,7 +1,7 @@
 import './App.css';
 import React, { Component } from 'react';
 import { getAllStudents } from './helpers/client';
-import { Table, Avatar, Tag, Spin, Modal } from 'antd';
+import { Table, Avatar, Tag, Spin, Modal, Empty } from 'antd';
 import Container from './Container';
 import Footer from './components/Footer';
 import AddStudentForm from './forms/AddStudentForm';
@@ -155,7 +155,11 @@ class App extends Component {
       );
     }
 
-    return <h2>No Students found</h2>;
+    return (
+      <Container>
+        <Empty description={<h2>No Students found</h2>} />
+      </Container>
+    );
   }
 }
 
