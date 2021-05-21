@@ -28,16 +28,23 @@ class App extends Component {
       isFetching: true,
     });
 
-    getAllStudents().then((res) =>
-      res.json().then((students) => {
-        console.log(students);
+    getAllStudents()
+      .then((res) =>
+        res.json().then((students) => {
+          console.log(students);
+          this.setState({
+            // students: students
+            students,
+            isFetching: false,
+          });
+        })
+      )
+      .catch((error) => {
+        console.log(error.error.message);
         this.setState({
-          // students: students
-          students,
           isFetching: false,
         });
-      })
-    );
+      });
   };
 
   //   {getAllStudents().then((res) =>
