@@ -48,12 +48,19 @@ const AddStudentForm = (props) => (
 
       //   setSubmitting(false);
       // }, 400);
-      addNewStudent(values).then(() => {
-        //alert(JSON.stringify(values));
-        props.onSuccess();
-        setSubmitting(false);
-        console.log(values);
-      });
+      addNewStudent(values)
+        .then(() => {
+          //alert(JSON.stringify(values));
+          props.onSuccess();
+          setSubmitting(false);
+          console.log(values);
+        })
+        .catch((err) => {
+          props.onFailure(err);
+        })
+        .finally(() => {
+          setSubmitting(false);
+        });
     }}
   >
     {({
